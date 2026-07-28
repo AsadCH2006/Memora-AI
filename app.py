@@ -31,7 +31,7 @@ CUSTOM_CSS = """
         gap: 8px;
         padding: 20px 0 16px 0;
         border-bottom: 1px solid #2E3856;
-        margin-bottom: 24px !important; /* Adds clean spacing below the divider line */
+        margin-bottom: 24px !important;
         text-align: center;
     }
     .header-title-row {
@@ -61,7 +61,7 @@ CUSTOM_CSS = """
     .hero-card {
         background: linear-gradient(135deg, #1E2640 0%, #151B2C 100%);
         border: 1px solid #2E3856;
-        border-radius: 16px; /* Restores full rounded corners */
+        border-radius: 16px;
         padding: 24px 24px;
         text-align: center;
         margin: 0 auto 30px auto !important;
@@ -223,7 +223,9 @@ class StreamlitChatUI:
                 "retrieved_mems": relevant_mems
             }
             st.session_state.messages.append(assistant_msg)
-            st.session_state.memory_handler.add_memory(user_input, bot_response)
+            
+            # FIXED: Passing only 1 argument to match MemoryHandler definition
+            st.session_state.memory_handler.add_memory(user_input)
             st.rerun()
 
 
