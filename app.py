@@ -107,7 +107,7 @@ class StreamlitChatUI:
             st.session_state.memory_handler = MemoryHandler(user_id="user_demo")
 
         if "llm_connector" not in st.session_state:
-            st.session_state.llm_connector = LLMConnector(model_name="gemini-3.1-pro-preview")
+    st.session_state.llm_connector = LLMConnector(model_name="llama-3.3-70b-versatile")
 
     def render_header(self):
         st.markdown(
