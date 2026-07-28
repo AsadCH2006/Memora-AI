@@ -1,4 +1,5 @@
 import os
+import streamlit as st
 from dotenv import load_dotenv
 from mem0 import MemoryClient
 
@@ -10,15 +11,18 @@ class MemoryHandler:
     def __init__(self, user_id: str = "user_demo"):
         self.user_id = user_id
         
+        # Safely retrieve key from environment variables or Streamlit Secrets
         api_key = os.getenv("MEM0_API_KEY")
+        if not api_key and hasattr(st, "secrets"):
+            api_key = st.secrets.get("MEM0_API_KEY")
+
         if not api_key:
-            raise ValueError("Missing MEM0_API_KEY in .env file.")
-            
+            raise ValueError("Missing MEM0_API_KEY in environment variables or Streamlit Secrets.")
+
         self.client = MemoryClient(api_key=api_key)
 
     def add_memory(self, user_message: str):
         """Passes ONLY user message to ensure only user facts are extracted."""
-        # By passing only the user's role, we prevent the assistant's general text from clogging memory
         messages = [{"role": "user", "content": user_message}]
         self.client.add(messages, user_id=self.user_id)
 
