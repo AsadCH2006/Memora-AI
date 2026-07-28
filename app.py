@@ -93,7 +93,7 @@ CUSTOM_CSS = """
 class StreamlitChatUI:
     def __init__(self):
         st.set_page_config(
-            page_title="Memora AI - Gemini 3.1",
+            page_title="Memora AI",
             page_icon="⚡",
             layout="centered",
             initial_sidebar_state="expanded"
@@ -107,7 +107,7 @@ class StreamlitChatUI:
             st.session_state.memory_handler = MemoryHandler(user_id="user_demo")
 
         if "llm_connector" not in st.session_state:
-    st.session_state.llm_connector = LLMConnector(model_name="llama-3.3-70b-versatile")
+            st.session_state.llm_connector = LLMConnector(model_name="llama-3.3-70b-versatile")
 
     def render_header(self):
         st.markdown(
@@ -116,7 +116,7 @@ class StreamlitChatUI:
                 <div class="header-title-row">
                     <h1 class="header-title">⚡ Memora AI</h1>
                 </div>
-                <span class="header-badge">Gemini 3.1 Pro + Mem0 Engine</span>
+                <span class="header-badge">Groq LLaMA 3.3 + Mem0 Engine</span>
             </div>
             """,
             unsafe_allow_html=True
@@ -223,7 +223,7 @@ class StreamlitChatUI:
                 "retrieved_mems": relevant_mems
             }
             st.session_state.messages.append(assistant_msg)
-            st.session_state.memory_handler.add_memory(user_input)
+            st.session_state.memory_handler.add_memory(user_input, bot_response)
             st.rerun()
 
 
